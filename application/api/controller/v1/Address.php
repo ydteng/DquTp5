@@ -14,6 +14,9 @@ use app\api\validate\IDMustBePositiveInt;
 use app\lib\exception\MissException;
 use app\api\service\Token as TokenService;
 use app\api\model\User as UserModel;
+use app\lib\exception\UserException;
+use app\lib\SuccessMessage;
+
 class Address
 {
     /**
@@ -45,7 +48,8 @@ class Address
 
     public function createOrUpdateAddress()
     {
-        (new AddressNew())->goCheck();
+        $validate = new AddressNew();
+        $validate->goCheck();
         //根据Token获取uid
         //根据uid查找用户数据，用户不存在则抛出异常
         //获取用户传过来的信息
@@ -54,7 +58,16 @@ class Address
         $uid = TokenService::getCurrentUid();
         $user = UserModel::get($uid);
         if (!$user){
-
+            throw new UserException();
         }
+        $dataArray = $validate->getDataByRule(input('post.'));
+        $userAddress = $user->address;
+        if (!$userAddress){
+            $user->address()->save($dataArray);
+        }
+        else{
+            $user->address->save($dataArray);
+        }
+        return json(new SuccessMessage(),201);
     }
 }
