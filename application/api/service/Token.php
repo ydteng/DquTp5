@@ -53,7 +53,7 @@ class Token
                 return $vars[$key];
             }
             else{
-                throw new Exception("尝试获取的Token变脸不存在");
+                throw new Exception("尝试获取的Token变量不存在");
             }
         }
     }

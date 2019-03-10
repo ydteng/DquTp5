@@ -1,16 +1,17 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: TenYoDun
+ * Date: 2019/3/8
+ * Time: 19:16
+ */
 
 namespace app\index\controller;
 
 
-use think\Log;
-
-class Index extends \think\Controller
+class Index
 {
-    public function index()
-    {
-        $url = 'http://dqu.com';
-        $this->assign('url',$url);
-        return view('index');
+    public function index(){
+        return "page error!";
     }
 }

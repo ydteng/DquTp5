@@ -19,8 +19,8 @@ class AddressNew extends BaseValidate
         'nickname' => 'require|isNotEmpty',
         'real_name' => 'require|isNotEmpty',
         'mobile' => 'require|isMobile',
-        'province' => 'require|isNotEmpty',
-        'school' => 'require|isNotEmpty',
+        'province_id' => 'require|isNotEmpty',
+        'school_id' => 'require|isNotEmpty',
         'detail' => 'require|isNotEmpty',
     ];
 }

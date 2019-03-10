@@ -15,6 +15,7 @@ class BannerInfo extends BaseModel
     public function img()
     {
         return $this->belongsTo('Img','img_id','id');
+
     }
     public static function getBanner()
     {

@@ -10,21 +10,18 @@
 // +----------------------------------------------------------------------
 use think\Route;
     //Banner
-    Route::get('api/v1/banner','api/v1.Banner/getBanner');
-    Route::get('api/v1/province','api/v1.Address/getProvince');
-    Route::get('api/v1/school/[:id]','api/v1.Address/getSchoolByProID');
+    Route::get('api/:version/banner','api/:version.Banner/getBanner');
+    Route::get('api/:version/province','api/:version.Address/getProvince');
+    Route::get('api/:version/school/[:id]','api/:version.Address/getSchoolByProID');
 
 
-    Route::post('api/v1/token/user','api/v1.Token/getToken');
-    Route::post('api/v1/token/verify','api/v1.Token/verifyToken');
+    Route::post('api/:version/token/user','api/:version.Token/getToken');
+    Route::post('api/:version/token/verify','api/:version.Token/verifyToken');
 
-    Route::post('api/v1/address','api/v1.Address/createOrUpdateAddress');
+    Route::post('api/:version/address','api/:version.Address/createOrUpdateAddress');
+    Route::post('api/:version/getAddress','api/:version.Address/getAddress');
 
-
-
-
-
-
+    Route::get('manual0289','manual/Index/index');
 
 
 
@@ -34,6 +31,12 @@ use think\Route;
 
 
 
-    Route::get('api/v1/test/[:value]','api/v1.TimeTest/test');
+
+
+
+
+
+
+    Route::get('api/:version/test/[:value]','api/:version.TimeTest/test');
 
 
