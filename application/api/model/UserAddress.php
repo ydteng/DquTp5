@@ -13,6 +13,7 @@ use app\lib\exception\MissException;
 
 class UserAddress extends BaseModel
 {
+    protected $hidden = ['province_id','school_id','create_time','update_time','delete_time'];
     public function province()
     {
         return $this->hasOne('Provinces','id','province_id');

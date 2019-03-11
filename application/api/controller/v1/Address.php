@@ -72,7 +72,7 @@ class Address
         return json(new SuccessMessage(),201);
     }
 
-    public function getAddress(){
+    public function getUserAddress(){
         //没有验证token是否传入，因为在下面的获取uid已经在header中验证了
         $uid = TokenService::getCurrentUid();
         $address = UserModel::getAddress($uid);

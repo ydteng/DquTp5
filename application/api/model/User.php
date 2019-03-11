@@ -9,10 +9,9 @@
 namespace app\api\model;
 
 
-use think\Route;
-
 class User extends BaseModel
 {
+    protected $hidden = ['create_time','update_time','delete_time'];
     public function address()
     {
         return $this->hasOne('UserAddress', 'user_id', 'id');
@@ -30,7 +29,12 @@ class User extends BaseModel
         if(!$address){
             throw new MissException();
         }
-        return $address['0']->visible(['address']);
+        //$address = $address['0']->visible(['address']);
+        $address = $address['0']->hidden([
+            'id','openid','score','status','address'=>['province.id','school.id','school.provinceId','school.level','school.city'],
+
+        ]);
+        return $address;
     }
 
 

@@ -19,7 +19,7 @@ use think\Route;
     Route::post('api/:version/token/verify','api/:version.Token/verifyToken');
 
     Route::post('api/:version/address','api/:version.Address/createOrUpdateAddress');
-    Route::post('api/:version/getAddress','api/:version.Address/getAddress');
+    Route::get('api/:version/address','api/:version.Address/getUserAddress');
 
     Route::get('manual0289','manual/Index/index');
 
