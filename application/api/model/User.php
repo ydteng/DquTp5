@@ -9,6 +9,8 @@
 namespace app\api\model;
 
 
+use app\lib\exception\MissException;
+
 class User extends BaseModel
 {
     protected $hidden = ['create_time','update_time','delete_time'];
@@ -17,25 +19,15 @@ class User extends BaseModel
         return $this->hasOne('UserAddress', 'user_id', 'id');
     }
 
+    public function order()
+    {
+        return $this->hasMany('Order', 'user_id', 'id');
+    }
+
     public static function getByOpenID($openid)
     {
         $user = self::where('openid','=',$openid)->find();
         return $user;
     }
-
-    public static function getAddress($id){
-
-        $address = self::with(['address'=>['province','school']])->select($id);
-        if(!$address){
-            throw new MissException();
-        }
-        //$address = $address['0']->visible(['address']);
-        $address = $address['0']->hidden([
-            'id','openid','score','status','address'=>['province.id','school.id','school.provinceId','school.level','school.city'],
-
-        ]);
-        return $address;
-    }
-
 
 }

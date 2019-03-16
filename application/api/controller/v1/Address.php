@@ -11,9 +11,9 @@ use app\api\model\Provinces as ProvincesModel;
 use app\api\model\School as SchoolModel;
 use app\api\validate\AddressNew;
 use app\api\validate\IDMustBePositiveInt;
-use app\api\validate\TokenMust;
 use app\lib\exception\MissException;
 use app\api\service\Token as TokenService;
+use app\api\model\UserAddress as UserAddressModel;
 use app\api\model\User as UserModel;
 use app\lib\exception\UserException;
 use app\lib\SuccessMessage;
@@ -75,7 +75,7 @@ class Address
     public function getUserAddress(){
         //没有验证token是否传入，因为在下面的获取uid已经在header中验证了
         $uid = TokenService::getCurrentUid();
-        $address = UserModel::getAddress($uid);
+        $address = UserAddressModel::getUserAddress($uid);
         if (!$address){
             throw new MissException();
         }

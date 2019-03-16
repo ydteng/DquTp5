@@ -53,3 +53,12 @@ function fromArrayToModel($m , $array)
     }
     return $m;
 }
+
+//hidden 对象数组的操作
+
+function myHidden($objectArray = [],$field=[])
+{
+    foreach ($objectArray as $key => $value) {
+        $objectArray[$key] = $value->hidden($field);
+    }
+}

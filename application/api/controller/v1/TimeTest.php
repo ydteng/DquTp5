@@ -14,8 +14,8 @@ use app\api\model\BannerInfo;
 class TimeTest
 {
     public function test(){
-
-        $temp = BannerInfo::with('img')->select();
-        return json($temp);
+        $strPol = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        $timestamp = $strPol[rand(0,25)].date('Ymd',time()).'2'.rand(111111,999999);
+        return $timestamp;
     }
 }

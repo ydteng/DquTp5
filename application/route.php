@@ -21,6 +21,10 @@ use think\Route;
     Route::post('api/:version/address','api/:version.Address/createOrUpdateAddress');
     Route::get('api/:version/address','api/:version.Address/getUserAddress');
 
+    Route::post('api/:version/order','api/:version.Order/placeOrder');
+    Route::get('api/:version/order/[:page]','api/:version.Order/getUserOrder');
+    Route::get('api/:version/order/all/[:page]','api/:version.Order/getAllOrder');
+
     Route::get('manual0289','manual/Index/index');
 
 

@@ -14,7 +14,7 @@ class Provinces extends BaseModel
     protected $hidden=['create_time','update_time','delete_time','url'];
     public  static function getProvinces()
     {
-        $provinces = self::all();
+        $provinces = self::where(['id' => '15'])->select();
         return $provinces;
     }
 }
