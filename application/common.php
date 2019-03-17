@@ -62,3 +62,10 @@ function myHidden($objectArray = [],$field=[])
         $objectArray[$key] = $value->hidden($field);
     }
 }
+
+function myVisible($objectArray = [],$field=[])
+{
+    foreach ($objectArray as $key => $value) {
+        $objectArray[$key] = $value->visible($field);
+    }
+}

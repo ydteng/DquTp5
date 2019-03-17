@@ -66,10 +66,15 @@ class Order
     }
 
     public function getOrderDetail(){
-        (new PagingParameter())->goCheck();
+        (new IDMustBePositiveInt())->goCheck();
         //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
-        $id = request()->param('page');
         $uid = TokenService::getCurrentUid();
+        $id = request()->param('id');
+        if (!$uid){
+            throw new UserException();
+        }
+        $detail = OrderModel::getDetail($id);
+        return $detail;
 
     }
 }

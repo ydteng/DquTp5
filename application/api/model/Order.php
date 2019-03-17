@@ -28,7 +28,7 @@ class Order extends BaseModel
         myHidden($orders,['status','detail','end_point.user_id']);
 
         if (!$orders){
-            throw new MissException();
+            $orders =[];
         }
         return $orders;
     }
@@ -43,5 +43,14 @@ class Order extends BaseModel
             throw new MissException();
         }
         return $orders;
+    }
+
+    public static function getDetail($id){
+        $detail = self::where(['id' => $id])->select();
+        if (!$detail){
+            throw new MissException();
+        }
+        myVisible($detail,['detail']);
+        return $detail;
     }
 }
