@@ -10,6 +10,7 @@ namespace app\api\model;
 
 
 use app\lib\exception\MissException;
+use app\api\service\TimeOut as TimeOutService;
 
 class Order extends BaseModel
 {
@@ -22,7 +23,7 @@ class Order extends BaseModel
 
     public static function getAllOrders($page)
     {
-        $orders = self::with('endPoint')->where(['status'=>'1'])
+        $orders = self::with('endPoint')->where(['status'=>'1000'])
             ->page($page,10)->order('create_time asc')->select();
 
         myHidden($orders,['status','detail','end_point.user_id']);
@@ -39,6 +40,7 @@ class Order extends BaseModel
         $orders = self::with('endPoint')->where(['user_id' => $uid])
             ->page($page,10)->order('create_time desc')->select();
         myHidden($orders,['detail','end_point.user_id']);
+        TimeOutService::orderTimeOut($orders);
         if (!$orders){
             throw new MissException();
         }

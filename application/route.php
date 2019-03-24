@@ -39,9 +39,6 @@ use think\Route;
 
 
 
-
-
-
     Route::get('api/:version/test/[:value]','api/:version.TimeTest/test');
 
 
