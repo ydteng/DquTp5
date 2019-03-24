@@ -16,10 +16,12 @@ use app\api\model\Order as OrderModel;
 use app\api\service\Token as TokenService;
 use app\api\service\Order as OrderService;
 use app\api\validate\PagingParameter;
+use app\lib\exception\pickException;
 use app\lib\exception\UserException;
 
 class Order
 {
+    //下单
     public function PlaceOrder()
     {
         $validate = new OrderPlace();
@@ -37,6 +39,7 @@ class Order
         $user->order()->save($dataArray);
         return json(['order_num' => $dataArray['order_num']],201);
     }
+    //获取个人订单
     public function getUserOrder()
     {
         (new PagingParameter())->goCheck();
@@ -49,7 +52,7 @@ class Order
         }
         return $orders;
     }
-
+    //获取全部订单
     public function getAllOrder()
     {
         (new PagingParameter())->goCheck();
@@ -64,7 +67,7 @@ class Order
 
 
     }
-
+    //获取订单详情
     public function getOrderDetail(){
         (new IDMustBePositiveInt())->goCheck();
         //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
@@ -77,4 +80,34 @@ class Order
         return $detail;
 
     }
+    //订单删除接口
+    public function deleteOrder(){
+        (new IDMustBePositiveInt())->goCheck();
+        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
+        $uid = TokenService::getCurrentUid();
+        $id = request()->param('id');
+        if (!$uid){
+            throw new UserException();
+        }
+        $msg = OrderModel::deleteOrder($id);
+        return json(['msg'=>$msg]);
+    }
+    //接单接口
+    public function packOrder(){
+        (new IDMustBePositiveInt())->goCheck();
+        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
+        $uid = TokenService::getCurrentUid();
+        $id = request()->param('id');
+        $receiverID = OrderModel::getReceiverByOrderID($id);
+        if (!$uid){
+            throw new UserException();
+        }
+        if ($uid == $receiverID){
+            throw new pickException();
+        }
+        $order = OrderModel::setPacker($id,$uid);
+        return $order;
+    }
+    //确认送达接口
+    public function
 }

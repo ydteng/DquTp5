@@ -12,11 +12,9 @@ namespace app\api\service;
 class TimeOut
 {
     /**
-    * @最好不要把三个超时函数合并，分开更灵活。
+     * @最好不要把三个超时函数合并，分开更灵活。
      */
     //发单超过24小时无人接取，订单失败
-    //接单方未确定完成，24小时订单完成 4001
-    //发单方未确定完成，24小时订单失效 3001
     public static function orderTimeOut($orders){
         foreach ($orders as $key => $value) {
             $startTime = $orders[$key]->create_time;
@@ -29,5 +27,13 @@ class TimeOut
             }
         }
     }
-    //
+    //接单方确认订单，发单方未确定完成，24小时订单失效，订单状态码由4000变为5001
+    public static function userTimeOut($orders){
+
+    }
+
+    //发单方确认订单，接单方未确定完成，24小时订单完成，订单状态码由4001变为5000
+    public static function pickerTimeOut($orders){
+
+    }
 }
