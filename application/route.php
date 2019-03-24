@@ -27,6 +27,7 @@ use think\Route;
     Route::get('api/:version/order/detail/[:id]','api/:version.Order/getOrderDetail');
     Route::delete('api/:version/order/delete','api/:version.Order/deleteOrder');
     Route::post('api/:version/order/pack','api/:version.Order/packOrder');
+    Route::post('api/:version/order/confirm','api/:version.Order/confirmOrder');
 
 
 

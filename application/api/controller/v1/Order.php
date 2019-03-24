@@ -109,5 +109,12 @@ class Order
         return $order;
     }
     //确认送达接口
-    public function
+    public function confirmOrder(){
+        (new IDMustBePositiveInt())->goCheck();
+        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
+        $uid = TokenService::getCurrentUid();
+        $id = request()->param('id');
+        $result = OrderService::changStatus($id,$uid);
+        return ['msg' => $result];
+    }
 }

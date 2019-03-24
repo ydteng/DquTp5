@@ -20,7 +20,7 @@ class Order extends BaseModel
     {
         return $this->hasOne('UserAddress','user_id','end_point_id');
     }
-
+    //获取发单人id
     public static function getReceiverByOrderID($id){
         $receiver = self::where(['id' => $id])->find();
         if (!$receiver){
@@ -28,6 +28,15 @@ class Order extends BaseModel
         }
         $receiverID = $receiver->user_id;
         return $receiverID;
+    }
+    //获取接单人id
+    public static function getPackerByOrderID($id){
+        $packer = self::where(['id' => $id])->find();
+        if (!$packer){
+            throw new MissException();
+        }
+        $packerID = $packer->packer_id;
+        return $packerID;
     }
 
     public static function getAllOrders($page)
@@ -83,7 +92,7 @@ class Order extends BaseModel
         if (!$order){
             throw new MissException();
         }
-        $order['0']->save(['packer_id' => $uid]);
+        $order['0']->save(['packer_id' => $uid,'status' => 3000]);
         myHidden($order,['user_id','packer_id','end_point.real_name']);
         return $order;
     }
