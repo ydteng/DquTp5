@@ -18,6 +18,7 @@ use app\api\service\Order as OrderService;
 use app\api\validate\PagingParameter;
 use app\lib\exception\pickException;
 use app\lib\exception\UserException;
+use think\Cache;
 
 class Order
 {
@@ -27,6 +28,12 @@ class Order
         $validate = new OrderPlace();
         $validate->goCheck();
         $uid = TokenService::getCurrentUid();
+
+        $result = OrderService::limitPlaceOrderNum($uid);
+        if ($result == false){
+            return json(['msg' => '超过每日下单数上限']);
+        }
+
         $user = UserModel::get($uid);
         if (!$user){
             throw new UserException();
@@ -37,15 +44,18 @@ class Order
         $dataArray['order_num'] = OrderService::makeOrderNum();
 
         $user->order()->save($dataArray);
+
+        OrderService::addPackOrderNum($uid);
+
         return json(['order_num' => $dataArray['order_num']],201);
     }
     //获取个人订单
     public function getUserOrder()
     {
         (new PagingParameter())->goCheck();
+        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
         $page = request()->param('page');
         $uid = TokenService::getCurrentUid();
-
         $orders = OrderModel::getUserOrder($page,$uid);
         if (!$orders){
             throw new MissException();
@@ -117,4 +127,22 @@ class Order
         $result = OrderService::changStatus($id,$uid);
         return ['msg' => $result];
     }
+    //获取我接取的订单列表
+    public function getPackedOrder(){
+        (new PagingParameter())->goCheck();
+        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
+        $page = request()->param('page');
+        $uid = TokenService::getCurrentUid();
+
+        $orders = OrderModel::getPackedOrders($page,$uid);
+        if (!$orders){
+            throw new MissException();
+        }
+        return $orders;
+
+    }
+
+
+
+
 }

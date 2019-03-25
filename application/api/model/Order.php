@@ -42,9 +42,9 @@ class Order extends BaseModel
     public static function getAllOrders($page)
     {
         $orders = self::with('endPoint')->where(['status'=>'2000'])
-            ->whereTime('create_time','>','-44 days')
+            ->whereTime('create_time','>','-1 days')
             ->page($page,10)->order('create_time asc')->select();
-        myHidden($orders,['detail','end_point.id','end_point.nickname','end_point.real_name','end_point.mobile']);
+        myHidden($orders,['detail','end_point.id','end_point.nickname','end_point.mobile']);
         if (!$orders){
             $orders =[];
         }
@@ -56,7 +56,7 @@ class Order extends BaseModel
     {
         $orders = self::with('endPoint')->where(['user_id' => $uid])
             ->page($page,10)->order('create_time desc')->select();
-        myHidden($orders,['detail','end_point.id','end_point.nickname','end_point.real_name','end_point.mobile']);
+        myHidden($orders,['detail','end_point.id','end_point.nickname','end_point.mobile']);
         TimeOutService::orderTimeOut($orders);
         if (!$orders){
             throw new MissException();
@@ -69,7 +69,7 @@ class Order extends BaseModel
         if (!$detail){
             throw new MissException();
         }
-        myHidden($detail,['end_point.id','end_point.nickname','end_point.real_name','end_point.mobile']);
+        myHidden($detail,['end_point.id','end_point.nickname','end_point.mobile']);
         return $detail;
     }
     //删除订单
@@ -93,7 +93,18 @@ class Order extends BaseModel
             throw new MissException();
         }
         $order['0']->save(['packer_id' => $uid,'status' => 3000]);
-        myHidden($order,['user_id','packer_id','end_point.real_name']);
+        myHidden($order,['user_id','packer_id',]);
         return $order;
+    }
+    //获取已接取的订单
+    public  static function getPackedOrders($page,$uid){
+        $orders = self::with('endPoint')->where(['packer_id' => $uid])
+            ->page($page,10)->order('create_time desc')->select();
+        myHidden($orders,['detail','end_point.id','end_point.nickname','end_point.mobile']);
+        TimeOutService::orderTimeOut($orders);
+        if (!$orders){
+            throw new MissException();
+        }
+        return $orders;
     }
 }

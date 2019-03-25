@@ -15,6 +15,8 @@
             <div class="htmledit_views" id="content_views">
                 <p id="main-toc">&nbsp;</p>
 
+                <h1 id="%E6%8E%A5%E5%8F%A3%E6%89%8B%E5%86%8C"><a name="t0"></a>接口手册</h1>
+
                 <p><strong>目录</strong></p>
 
                 <p id="%E6%8E%A5%E5%8F%A3%E6%89%8B%E5%86%8C-toc" style="margin-left:0px;"><a href="#%E6%8E%A5%E5%8F%A3%E6%89%8B%E5%86%8C" rel="nofollow" target="_self">接口手册</a></p>
@@ -41,6 +43,8 @@
 
                 <p id="%E8%8E%B7%E5%8F%96%E4%B8%AA%E4%BA%BA%E8%AE%A2%E5%8D%95%E4%BF%A1%E6%81%AF%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Aget%EF%BC%89-toc" style="margin-left:40px;"><a href="#%E8%8E%B7%E5%8F%96%E4%B8%AA%E4%BA%BA%E8%AE%A2%E5%8D%95%E4%BF%A1%E6%81%AF%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Aget%EF%BC%89" rel="nofollow" target="_self">获取个人订单信息（方法：get）</a></p>
 
+                <p id="%E8%8E%B7%E5%8F%96%E6%88%91%E6%8E%A5%E5%8F%96%E7%9A%84%E8%AE%A2%E5%8D%95%E5%88%97%E8%A1%A8%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Aget%EF%BC%89-toc" style="margin-left:40px;"><a href="#%E8%8E%B7%E5%8F%96%E6%88%91%E6%8E%A5%E5%8F%96%E7%9A%84%E8%AE%A2%E5%8D%95%E5%88%97%E8%A1%A8%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Aget%EF%BC%89" rel="nofollow" target="_self">获取我接取的订单列表（方法：get）</a></p>
+
                 <p id="4.%E5%85%AC%E5%85%B1%E8%AE%A2%E5%8D%95%E7%B1%BB-toc" style="margin-left:40px;"><a href="#4.%E5%85%AC%E5%85%B1%E8%AE%A2%E5%8D%95%E7%B1%BB" rel="nofollow" target="_self">4.公共订单类</a></p>
 
                 <p id="%E4%B8%8B%E5%8D%95%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Apost%EF%BC%89-toc" style="margin-left:40px;"><a href="#%E4%B8%8B%E5%8D%95%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Apost%EF%BC%89" rel="nofollow" target="_self">下单（方法：post）</a></p>
@@ -49,7 +53,28 @@
 
                 <p id="%E8%8E%B7%E5%8F%96%E8%AE%A2%E5%8D%95%E8%AF%A6%E6%83%85%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Aget%EF%BC%89-toc" style="margin-left:40px;"><a href="#%E8%8E%B7%E5%8F%96%E8%AE%A2%E5%8D%95%E8%AF%A6%E6%83%85%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Aget%EF%BC%89" rel="nofollow" target="_self">获取订单详情（方法：get）</a></p>
 
-                <hr id="hr-toc"><h1><a name="t0"></a>接口手册</h1>
+                <p id="%E5%88%A0%E9%99%A4%E8%AE%A2%E5%8D%95%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Adelete%EF%BC%89-toc" style="margin-left:40px;"><a href="#%E5%88%A0%E9%99%A4%E8%AE%A2%E5%8D%95%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Adelete%EF%BC%89" rel="nofollow" target="_self">删除订单（方法：delete）</a></p>
+
+                <p id="%E6%8E%A5%E5%8F%96%E8%AE%A2%E5%8D%95%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Apost%EF%BC%89-toc" style="margin-left:40px;"><a href="#%E6%8E%A5%E5%8F%96%E8%AE%A2%E5%8D%95%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Apost%EF%BC%89" rel="nofollow" target="_self">接取订单（方法：post）</a></p>
+
+                <hr id="hr-toc"><blockquote>
+                <p>状态码 status 释义：</p>
+
+                <p>1000.失败（订单人接取）<br>
+                    1001.订单取消</p>
+
+                <p>2000.等待接单</p>
+
+                <p>3000.已接单,派送中</p>
+
+                <p>4000.接单方已确认订单<br>
+                    4001.发单方已确认订单</p>
+
+                <p>5000.接单方24小时后未确认订单，订单自动完成<br>
+                    5001.发单方24小时后未确认订单，订单自动失效</p>
+
+                <p>6000.最终状态不做判断，双方都确认订单</p>
+            </blockquote>
 
                 <h2 id="1.%E5%85%AC%E5%85%B1%E6%9F%A5%E8%AF%A2%E7%B1%BB"><a name="t1"></a>1.公共查询类</h2>
 
@@ -57,7 +82,7 @@
                     <h3 id="%E8%8E%B7%E5%8F%96banner%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Aget%EF%BC%89"><a name="t2"></a>获取banner（方法：get）</h3>
                 </li>
                 </ul><blockquote>
-                <p><a href="http://dqu.com/api/v1/banner" rel="nofollow" target="_blank">https://dqu.com/api/v1/banner</a></p>
+                <p><a href="https://camserv.cn/api/v1/banner" rel="nofollow" target="_blank">https://camserv.cn/api/v1/banner</a></p>
             </blockquote>
 
                 <div class="table-box"><table border="1" cellpadding="1" cellspacing="1"><caption>参数值</caption>
@@ -76,7 +101,7 @@
                 <h3 id="%E8%8E%B7%E5%8F%96%E7%9C%81%E4%BB%BD%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Aget%EF%BC%89"><a name="t3"></a>获取省份（方法：get）</h3>
             </li>
             </ul><blockquote>
-                <p><a href="https://dqu.com/api/v1/province" rel="nofollow" target="_blank">https://dqu.com/api/v1/province</a></p>
+                <p><a href="https://camserv.cn/api/v1/province" rel="nofollow" target="_blank">https://camserv.cn/api/v1/province</a></p>
             </blockquote>
 
                 <div class="table-box"><table border="1" cellpadding="1" cellspacing="1"><caption>参数值</caption>
@@ -95,7 +120,7 @@
                 <h3 id="%E8%8E%B7%E5%8F%96%E5%AD%A6%E6%A0%A1%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Aget%EF%BC%89"><a name="t4"></a>获取学校（方法：get）</h3>
             </li>
             </ul><blockquote>
-                <p><a href="https://dqu.com/api/v1/school/:id" rel="nofollow" target="_blank">https://dqu.com/api/v1/school/:id</a></p>
+                <p><a href="https://camserv.cn/api/v1/school/:id" rel="nofollow" target="_blank">https://camserv.cn/api/v1/school/:id</a></p>
             </blockquote>
 
                 <p><span style="color:#f33b45;">说明：根据省份id获取对应省份的学校</span></p>
@@ -130,7 +155,7 @@
                     <h3 id="%E8%8E%B7%E5%8F%96Token%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Apost%EF%BC%89"><a name="t6"></a>获取Token（方法：post）</h3>
                 </li>
                 </ul><blockquote>
-                <p><a href="http://dqu.com/api/v1/token/user" rel="nofollow" target="_blank">https://dqu.com/api/v1/token/user</a></p>
+                <p><a href="https://camserv.cn/api/v1/token/user" rel="nofollow" target="_blank">https://camserv.cn/api/v1/token/user</a></p>
             </blockquote>
 
                 <p><span style="color:#f33b45;">说明：code参数放在body中传递</span></p>
@@ -149,7 +174,7 @@
                 <h2 id="Token%E5%90%88%E6%B3%95%E6%80%A7%E9%AA%8C%E8%AF%81%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Apost%EF%BC%89"><a name="t7"></a>Token合法性验证（方法：post）</h2>
             </li>
             </ul><blockquote>
-                <p><a href="https://dqu.com/api/v1/token/verify" rel="nofollow" target="_blank">https://dqu.com/api/v1/token/verify</a></p>
+                <p><a href="https://camserv.cn/api/v1/token/verify" rel="nofollow" target="_blank">https://camserv.cn/api/v1/token/verify</a></p>
             </blockquote>
 
                 <div class="table-box"><table border="1" cellpadding="1" cellspacing="1"><caption>参数值</caption>
@@ -172,7 +197,7 @@
                     <h2 id="%E6%B7%BB%E5%8A%A0%E4%B8%AA%E4%BA%BA%E4%BF%A1%E6%81%AF%E5%8F%8A%E6%94%B6%E8%B4%A7%E5%9C%B0%E5%9D%80%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Apost%EF%BC%89"><a name="t9"></a>添加个人信息及收货地址（方法：post）</h2>
                 </li>
                 </ul><blockquote>
-                <p><a href="https://dqu.com/api/v1/address" rel="nofollow" target="_blank">https://dqu.com/api/v1/address</a></p>
+                <p><a href="https://camserv.cn/api/v1/address" rel="nofollow" target="_blank">https://camserv.cn/api/v1/address</a></p>
             </blockquote>
 
                 <p><span style="color:#f33b45;">说明：token在header中传入，其他在body中传入，json格式。</span></p>
@@ -207,10 +232,10 @@
                 <h2 id="%E8%8E%B7%E5%8F%96%E7%94%A8%E6%88%B7%E5%9C%B0%E5%9D%80%E4%BF%A1%E6%81%AF%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Aget%EF%BC%89"><a name="t10"></a>获取用户地址信息（方法：get）</h2>
             </li>
             </ul><blockquote>
-                <p><a href="https://dqu.com/api/v1/address" rel="nofollow" target="_blank">https://dqu.com/api/v1/address</a></p>
+                <p><a href="https://camserv.cn/api/v1/address" rel="nofollow" target="_blank">https://camserv.cn/api/v1/address</a></p>
             </blockquote>
 
-                <p><span style="color:#f33b45;">说明：区别于上面的添加地址，接口地址相同，但是方法不同。token还是在get中。</span></p>
+                <p><span style="color:#f33b45;">说明：区别于上面的添加地址，接口地址相同，但是方法不同。token还是在header中。</span></p>
 
                 <div class="table-box"><table border="1" cellpadding="1" cellspacing="1"><caption>参数值</caption>
                     <thead><tr><th scope="col" style="width:288px;">字段</th>
@@ -269,10 +294,45 @@
                     <td>订单物品类型（如快递，餐饮等）</td>
                 </tr><tr><td style="width:134px;">order_num</td>
                     <td>订单号</td>
-                </tr></tbody></table></div><h2 id="4.%E5%85%AC%E5%85%B1%E8%AE%A2%E5%8D%95%E7%B1%BB"><a name="t12"></a>4.公共订单类</h2>
+                </tr></tbody></table></div><p>&nbsp;</p>
 
                 <ul><li>
-                    <h2 id="%E4%B8%8B%E5%8D%95%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Apost%EF%BC%89"><a name="t13"></a>下单（方法：post）</h2>
+                    <h2 id="%E8%8E%B7%E5%8F%96%E6%88%91%E6%8E%A5%E5%8F%96%E7%9A%84%E8%AE%A2%E5%8D%95%E5%88%97%E8%A1%A8%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Aget%EF%BC%89"><a name="t12"></a>获取我接取的订单列表（方法：get）</h2>
+                </li>
+                </ul><blockquote>
+                <p><a href="https://camserv.cn/api/v1/order/packedOrder/:page" rel="nofollow" target="_blank">https://camserv.cn/api/v1/order/packedOrder/:page</a></p>
+            </blockquote>
+
+                <p><span style="color:#f33b45;">说明：token在header中传入，返回的事按时间顺序从降序排序（即从晚到早）。</span></p>
+
+                <div class="table-box"><table border="1" cellpadding="1" cellspacing="1"><caption>参数值</caption>
+                    <thead><tr><th scope="col" style="width:137px;">字段</th>
+                        <th scope="col">释义</th>
+                    </tr></thead><tbody><tr><td style="width:137px;">page</td>
+                        <td>是用来分页用的id，防止一次性加载数据太多，每页返回10个数据</td>
+                    </tr></tbody></table></div><div class="table-box"><table border="1" cellpadding="1" cellspacing="1"><caption>返回值</caption>
+                <thead><tr><th scope="col" style="width:134px;">字段</th>
+                    <th scope="col">释义</th>
+                </tr></thead><tbody><tr><td style="width:134px;">id</td>
+                    <td>订单id，可用于查看订单详情</td>
+                </tr><tr><td style="width:134px;">status</td>
+                    <td><span style="color:#f33b45;">（重要）</span>订单状态，代码表示：1等待接单-2已接单派送中-3失败（订单取消或派送失败等）-4订单完成</td>
+                </tr><tr><td style="width:134px;">cost</td>
+                    <td>订单费用</td>
+                </tr><tr><td style="width:134px;">start_point</td>
+                    <td>订单起点</td>
+                </tr><tr><td style="width:134px;">end_point</td>
+                    <td>订单终点信息</td>
+                </tr><tr><td style="width:134px;">item_type</td>
+                    <td>订单物品类型（如快递，餐饮等）</td>
+                </tr><tr><td style="width:134px;">order_num</td>
+                    <td>订单号</td>
+                </tr></tbody></table></div><p>&nbsp;</p>
+
+                <h2 id="4.%E5%85%AC%E5%85%B1%E8%AE%A2%E5%8D%95%E7%B1%BB"><a name="t13"></a>4.公共订单类</h2>
+
+                <ul><li>
+                    <h2 id="%E4%B8%8B%E5%8D%95%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Apost%EF%BC%89"><a name="t14"></a>下单（方法：post）</h2>
                 </li>
                 </ul><blockquote>
                 <p><a href="https://camserv.cn/api/v1/order" rel="nofollow" target="_blank">https://camserv.cn/api/v1/order</a></p>
@@ -297,7 +357,7 @@
                 </tr></thead><tbody><tr><td style="width:246px;">orde_num</td>
                     <td style="width:603px;">订单号</td>
                 </tr></tbody></table></div><ul><li>
-                <h2 id="%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%BE%85%E6%8E%A5%E5%8F%96%E7%9A%84%E8%AE%A2%E5%8D%95%E5%88%97%E8%A1%A8"><a name="t14"></a>获取所有待接取的订单列表（方法：get）</h2>
+                <h2 id="%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E5%BE%85%E6%8E%A5%E5%8F%96%E7%9A%84%E8%AE%A2%E5%8D%95%E5%88%97%E8%A1%A8"><a name="t15"></a>获取所有待接取的订单列表（方法：get）</h2>
             </li>
             </ul><blockquote>
                 <p><a href="https://camserv.cn/api/v1/order/all/:page" rel="nofollow" target="_blank">https://camserv.cn/api/v1/order/all/:page</a></p>
@@ -330,7 +390,7 @@
                         <p>订单号</p>
                     </td>
                 </tr></tbody></table></div><ul><li>
-                <h2 id="%E8%8E%B7%E5%8F%96%E8%AE%A2%E5%8D%95%E8%AF%A6%E6%83%85%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Aget%EF%BC%89"><a name="t15"></a>获取订单详情（方法：get）</h2>
+                <h2 id="%E8%8E%B7%E5%8F%96%E8%AE%A2%E5%8D%95%E8%AF%A6%E6%83%85%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Aget%EF%BC%89"><a name="t16"></a>获取订单详情（方法：get）</h2>
             </li>
             </ul><blockquote>
                 <p><a href="https://camserv.cn/api/v1/order/detail/:id" rel="nofollow" target="_blank">https://camserv.cn/api/v1/order/detail/:id</a></p>
@@ -344,12 +404,81 @@
                     </tr></thead><tbody><tr><td style="width:287px;">id</td>
                         <td style="width:562px;">订单id</td>
                     </tr></tbody></table></div><div class="table-box"><table border="1" cellpadding="1" cellspacing="1"><caption>返回值</caption>
+                <thead><tr><th scope="col" style="width:134px;">字段</th>
+                    <th scope="col">释义</th>
+                </tr></thead><tbody><tr><td style="width:134px;">id</td>
+                    <td>订单id，可用于查看订单详情</td>
+                </tr><tr><td style="width:134px;">status</td>
+                    <td><span style="color:#f33b45;">（重要）</span>订单状态，代码表示：1等待接单-2已接单派送中-3失败（订单取消或派送失败等）-4订单完成</td>
+                </tr><tr><td style="width:134px;">cost</td>
+                    <td>订单费用</td>
+                </tr><tr><td style="width:134px;">start_point</td>
+                    <td>订单起点</td>
+                </tr><tr><td style="width:134px;">end_point</td>
+                    <td>订单终点信息</td>
+                </tr><tr><td style="width:134px;">item_type</td>
+                    <td>订单物品类型（如快递，餐饮等）</td>
+                </tr><tr><td style="width:134px;">order_num</td>
+                    <td>
+                        <p>订单号</p>
+                    </td>
+                </tr><tr><td style="width:134px;"><span style="color:#f33b45;">detail</span></td>
+                    <td>订单详情</td>
+                </tr></tbody></table></div><ul><li>
+                <h2 id="%E5%88%A0%E9%99%A4%E8%AE%A2%E5%8D%95%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Adelete%EF%BC%89"><a name="t17"></a>删除订单（方法：delete）</h2>
+            </li>
+            </ul><blockquote>
+                <p><a href="https://camserv.cn/api/v1/order/delete" rel="nofollow" target="_blank">https://camserv.cn/api/v1/order/delete</a></p>
+            </blockquote>
+
+                <p><span style="color:#f33b45;">说明：订单id需要在body中传入，需要在header中传入token</span></p>
+
+                <div class="table-box"><table border="1" cellpadding="1" cellspacing="1"><caption>参数值</caption>
+                    <thead><tr><th scope="col" style="width:206px;">字段</th>
+                        <th scope="col" style="width:643px;">释义</th>
+                    </tr></thead><tbody><tr><td style="width:206px;">id</td>
+                        <td style="width:643px;">订单id</td>
+                    </tr></tbody></table></div><div class="table-box"><table border="1" cellpadding="1" cellspacing="1"><caption>返回值</caption>
                 <thead><tr><th scope="col">字段</th>
                     <th scope="col">释义</th>
-                </tr></thead><tbody><tr><td>detail</td>
-                    <td>订单详细信息</td>
-                </tr></tbody></table></div><p>&nbsp;</p>
-            </div>
+                </tr></thead><tbody><tr><td>msg</td>
+                    <td>删除是否成功的消息</td>
+                </tr></tbody></table></div><ul><li>
+                <h2 id="%E6%8E%A5%E5%8F%96%E8%AE%A2%E5%8D%95%EF%BC%88%E6%96%B9%E6%B3%95%EF%BC%9Apost%EF%BC%89"><a name="t18"></a>接取订单（方法：post）</h2>
+            </li>
+            </ul><blockquote>
+                <p><a href="https://camserv.cn/api/v1/order/pack" rel="nofollow" target="_blank">https://camserv.cn/api/v1/order/pack</a></p>
+            </blockquote>
+
+                <p><span style="color:#f33b45;">说明：需要在header中传入token，订单id需要在body中传入</span></p>
+
+                <div class="table-box"><table border="1" cellpadding="1" cellspacing="1"><caption>参数值</caption>
+                    <thead><tr><th scope="col" style="width:211px;">字段</th>
+                        <th scope="col" style="width:638px;">释义</th>
+                    </tr></thead><tbody><tr><td style="width:211px;">id</td>
+                        <td style="width:638px;">订单id</td>
+                    </tr></tbody></table></div><div class="table-box"><table border="1" cellpadding="1" cellspacing="1"><caption>返回值</caption>
+                <thead><tr><th scope="col" style="width:134px;">字段</th>
+                    <th scope="col">释义</th>
+                </tr></thead><tbody><tr><td style="width:134px;">id</td>
+                    <td>订单id，可用于查看订单详情</td>
+                </tr><tr><td style="width:134px;">status</td>
+                    <td><span style="color:#f33b45;">（重要）</span>订单状态，代码表示：1等待接单-2已接单派送中-3失败（订单取消或派送失败等）-4订单完成</td>
+                </tr><tr><td style="width:134px;">cost</td>
+                    <td>订单费用</td>
+                </tr><tr><td style="width:134px;">start_point</td>
+                    <td>订单起点</td>
+                </tr><tr><td style="width:134px;"><span style="color:#f33b45;">end_point</span></td>
+                    <td><span style="color:#f33b45;">订单终点信息，包括了个人信息，需要显示给接单人</span></td>
+                </tr><tr><td style="width:134px;">item_type</td>
+                    <td>订单物品类型（如快递，餐饮等）</td>
+                </tr><tr><td style="width:134px;">order_num</td>
+                    <td>
+                        <p>订单号</p>
+                    </td>
+                </tr><tr><td style="width:134px;">detail</td>
+                    <td>订单详情</td>
+                </tr></tbody></table></div>            </div>
         </div>
     </article>
 </div>
