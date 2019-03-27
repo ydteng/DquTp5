@@ -57,9 +57,6 @@ class Order
         $page = request()->param('page');
         $uid = TokenService::getCurrentUid();
         $orders = OrderModel::getUserOrder($page,$uid);
-        if (!$orders){
-            throw new MissException();
-        }
         return $orders;
     }
     //获取全部订单
@@ -124,7 +121,10 @@ class Order
         //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
         $uid = TokenService::getCurrentUid();
         $id = request()->param('id');
-        $result = OrderService::changStatus($id,$uid);
+        if (!$uid){
+            throw new UserException();
+        }
+        $result = OrderService::changConfirmStatus($id,$uid);
         return ['msg' => $result];
     }
     //获取我接取的订单列表
@@ -133,16 +133,23 @@ class Order
         //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
         $page = request()->param('page');
         $uid = TokenService::getCurrentUid();
-
-        $orders = OrderModel::getPackedOrders($page,$uid);
-        if (!$orders){
-            throw new MissException();
+        if (!$uid){
+            throw new UserException();
         }
+        $orders = OrderModel::getPackedOrders($page,$uid);
         return $orders;
 
     }
-
-
-
-
+    //取消订单
+    public function cancelOrder(){
+        (new IDMustBePositiveInt())->goCheck();
+        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
+        $uid = TokenService::getCurrentUid();
+        $id = request()->param('id');
+        if (!$uid){
+            throw new UserException();
+        }
+        $result = OrderModel::cancel($id,$uid);
+        return $result;
+    }
 }

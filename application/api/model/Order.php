@@ -11,7 +11,7 @@ namespace app\api\model;
 
 use app\lib\exception\MissException;
 use app\api\service\TimeOut as TimeOutService;
-
+use app\api\service\Order as OrderService;
 class Order extends BaseModel
 {
     protected $hidden = ['end_point_id','user_id','packer_id','create_time','update_time','delete_time'];
@@ -59,7 +59,7 @@ class Order extends BaseModel
         myHidden($orders,['detail','end_point.id','end_point.nickname','end_point.mobile']);
         TimeOutService::orderTimeOut($orders);
         if (!$orders){
-            throw new MissException();
+            return [];
         }
         return $orders;
     }
@@ -103,8 +103,19 @@ class Order extends BaseModel
         myHidden($orders,['detail','end_point.id','end_point.nickname','end_point.mobile']);
         TimeOutService::orderTimeOut($orders);
         if (!$orders){
-            throw new MissException();
+            return [];
         }
         return $orders;
+    }
+    //取消订单
+    public static function cancel($id,$uid){
+        $order = self::where(['id' => $id])->find();
+        $result = OrderService::changeCancelStatus($order,$uid);
+        if ($result == true){
+            return ['msg' => '取消成功'];
+        }
+        else{
+            return ['msg' => '订单已被接取，作为发单人不能取消'];
+        }
     }
 }

@@ -69,3 +69,27 @@ function myVisible($objectArray = [],$field=[])
         $objectArray[$key] = $value->visible($field);
     }
 }
+
+//计算时间差
+function subTime($order,$time){
+    /**
+     * @order是订单
+     * @time是选择获取的时间差，是小时数，天数还是小时数
+    */
+
+    $startTime = $order->update_time;
+    $endTime = date('Y-m-d H:i:s');
+
+    $H = 3600;
+    $D = 86400;
+
+    if ($time == 'H'){
+        $hour = floor((strtotime($endTime)-strtotime($startTime))/$H);
+        return $hour;
+    }
+    else if($time == 'D'){
+        $hour = floor((strtotime($endTime)-strtotime($startTime))/$D);
+        return $hour;
+    }
+
+}

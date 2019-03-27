@@ -29,8 +29,7 @@ use think\Route;
     Route::post('api/:version/order/pack','api/:version.Order/packOrder');
     Route::get('api/:version/order/packedOrder/[:page]','api/:version.Order/getPackedOrder');
     Route::post('api/:version/order/confirm','api/:version.Order/confirmOrder');
-
-
+    Route::post('api/:version/order/cancel','api/:version.Order/cancelOrder');
 
 
 
