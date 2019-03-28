@@ -128,7 +128,10 @@ class Order
             }
         }
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> a4a18e596c7bdc576e7079227e1a70e78a0c8d6a
     //增加发单数
     public static function addPackOrderNum($uid){
         $val = Cache::get($uid);
@@ -144,14 +147,20 @@ class Order
 
     //取消订单的状态
     public static function changeCancelStatus($order,$uid){
+<<<<<<< HEAD
         $userID = $order->user_id;
         $packerID = $order->packer_id;
+=======
+        $user = $order->user_id;
+        $packer = $order->packer_id;
+>>>>>>> a4a18e596c7bdc576e7079227e1a70e78a0c8d6a
         $status = $order->status;
         $hour = subTime($order,'H');
         //为了保险加上的时间检测
         if ($hour >=24){
             throw  new TimeOutException();
         }
+<<<<<<< HEAD
         else if ($uid == $userID && $status == 3000){
             return false;
         }
@@ -165,6 +174,19 @@ class Order
             throw new CancelException(['msg' => '非法取消订单']);
         }
         else{
+=======
+        else if ($uid == $user && $status == 3000){
+            return false;
+        }
+        else if ($status == 1000){
+            throw new CancelException();
+        }
+        else if($uid != $packer){
+            throw new CancelException(['msg' => '非法取消订单']);
+        }
+        else{
+            $order->save(['status' => 1000]);
+>>>>>>> a4a18e596c7bdc576e7079227e1a70e78a0c8d6a
             return true;
         }
     }

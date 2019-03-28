@@ -110,12 +110,17 @@ class Order extends BaseModel
     //取消订单
     public static function cancel($id,$uid){
         $order = self::where(['id' => $id])->find();
+<<<<<<< HEAD
         if (!$order){
             throw new MissException();
         }
         $result = OrderService::changeCancelStatus($order,$uid);
         if ($result == true){
             $order->save(['status' => 1000]);
+=======
+        $result = OrderService::changeCancelStatus($order,$uid);
+        if ($result == true){
+>>>>>>> a4a18e596c7bdc576e7079227e1a70e78a0c8d6a
             return ['msg' => '取消成功'];
         }
         else{

@@ -143,7 +143,11 @@ class Order
     //取消订单
     public function cancelOrder(){
         (new IDMustBePositiveInt())->goCheck();
+<<<<<<< HEAD
         //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会先检测有没有传值，报id参数错误的错
+=======
+        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
+>>>>>>> a4a18e596c7bdc576e7079227e1a70e78a0c8d6a
         $uid = TokenService::getCurrentUid();
         $id = request()->param('id');
         if (!$uid){
