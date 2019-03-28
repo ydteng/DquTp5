@@ -8,19 +8,24 @@
 
 namespace app\api\service;
 use app\api\model\Order as OrderModel;
+use app\lib\exception\CancelException;
 use app\lib\exception\confirmException;
+use app\lib\exception\TimeOutException;
 use think\Cache;
 use think\Exception;
 
 class Order
 {
-    public static function makeOrderNum(){
+    //生成订单号  格式为当前日期+10000+uid+随机数
+    public static function makeOrderNum($uid){
+        $num = 10000+$uid;
         $strPol = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        $timestamp = $strPol[rand(0,25)].date('Ymd',time()).'2'.rand(11111111,99999999);
+        $timestamp = $strPol[rand(0,25)].date('Ymd',time()).$num.rand(11111111,99999999);
         return $timestamp;
     }
 
-    public static function changStatus($id,$uid){
+    //改变确定订单状态
+    public static function changConfirmStatus($id,$uid){
         /*
          * 改变流程
          * 首先获取订单的接单人id和发单人id
@@ -35,18 +40,20 @@ class Order
         $status = $order->status;
 
         //计算订单时间
-        $startTime = $order->update_time;
-        $endTime = date('Y-m-d H:i:s');
-        $hour = floor((strtotime($endTime)-strtotime($startTime))/3600);
+
+        $hour = subTime($order,'H');
 
 
         $receiverID = OrderModel::getReceiverByOrderID($id);
         $packerID = OrderModel::getPackerByOrderID($id);
 
+        //为了保险加上的时间检测
         if ($hour >= 24){
             throw new confirmException(['msg' => '订单接单超过24小时无法确定']);
         }
-
+        if ($status == 2000){
+            throw new confirmException(['msg' => '非法操作，未接取的订单无法确认']);
+        }
         if ($status == 6000 && $status == 1000){
             throw new confirmException();
         }
@@ -55,6 +62,9 @@ class Order
             if ($status == 4000){
                 $order->save(['status' => 6000]);
                 return $msg;
+            }
+            else if($status == 4001){
+                throw new confirmException(['msg' => '请不要重复确认订单']);
             }
             else{
                 $order->save(['status' => 4001]);
@@ -65,7 +75,11 @@ class Order
             if ($status == 4001){
                 $order->save(['status' => 6000]);
                 return $msg;
-            }else{
+            }
+            else if($status == 4000){
+                throw new confirmException(['msg' => '请不要重复确认订单']);
+            }
+            else{
                 $order->save(['status' => 4000]);
                 return $msg;
             }
@@ -115,15 +129,43 @@ class Order
         }
     }
 
+    //增加发单数
     public static function addPackOrderNum($uid){
         $val = Cache::get($uid);
         if (!is_array($val)){
             $val = json_decode($val,true);
         }
-        if($val['Num']<10){
+        if($val['Num']<20){
             $val['Num'] = $val['Num']+1;
         }
         $val = json_encode($val);
         cache($uid,$val);
+    }
+
+    //取消订单的状态
+    public static function changeCancelStatus($order,$uid){
+        $userID = $order->user_id;
+        $packerID = $order->packer_id;
+        $status = $order->status;
+        $hour = subTime($order,'H');
+        //为了保险加上的时间检测
+        if ($hour >=24){
+            throw  new TimeOutException();
+        }
+        else if ($uid == $userID && $status == 3000){
+            return false;
+        }
+        else if ($uid == $userID && $status == 2000){
+            return true;
+        }
+        else if ($status == 1000){
+            throw new CancelException();
+        }
+        else if($uid != $packerID){
+            throw new CancelException(['msg' => '非法取消订单']);
+        }
+        else{
+            return true;
+        }
     }
 }

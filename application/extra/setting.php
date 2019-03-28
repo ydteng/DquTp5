@@ -7,6 +7,6 @@
  */
 
 return [
-    'img_prefix' => 'http://dqu.com/images',
+    'img_prefix' => 'https://camserv.cn/images',
     'token_expire_in' => '7200',
 ];

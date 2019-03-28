@@ -20,6 +20,15 @@
 {
 	"cost":"45.3",
 	"start_point":"第三食堂",
-	"item_type":"快递",
+	"item_type":"餐饮",
 	"detail":"三个馒头"
+}
+
+{
+	"nickname":"鸡爪",
+	"real_name":"***",
+	"mobile":"18888888888",
+	"province_id":"15",
+	"school_id":"2669",
+	"detail":"23号楼236"
 }

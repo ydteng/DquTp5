@@ -41,7 +41,7 @@ class Order
         $dataArray = $validate->getDataByRule(input('post.'));
 
         $dataArray['end_point_id'] = $uid;
-        $dataArray['order_num'] = OrderService::makeOrderNum();
+        $dataArray['order_num'] = OrderService::makeOrderNum($uid);
 
         $user->order()->save($dataArray);
 
@@ -53,20 +53,17 @@ class Order
     public function getUserOrder()
     {
         (new PagingParameter())->goCheck();
-        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
+        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会先检测有没有传值，报id参数错误的错
         $page = request()->param('page');
         $uid = TokenService::getCurrentUid();
         $orders = OrderModel::getUserOrder($page,$uid);
-        if (!$orders){
-            throw new MissException();
-        }
         return $orders;
     }
     //获取全部订单
     public function getAllOrder()
     {
         (new PagingParameter())->goCheck();
-        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
+        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会先检测有没有传值，报id参数错误的错
         $page = request()->param('page');
         $uid = TokenService::getCurrentUid();
         if (!$uid){
@@ -80,7 +77,7 @@ class Order
     //获取订单详情
     public function getOrderDetail(){
         (new IDMustBePositiveInt())->goCheck();
-        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
+        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会先检测有没有传值，报id参数错误的错
         $uid = TokenService::getCurrentUid();
         $id = request()->param('id');
         if (!$uid){
@@ -93,7 +90,7 @@ class Order
     //订单删除接口
     public function deleteOrder(){
         (new IDMustBePositiveInt())->goCheck();
-        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
+        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会先检测有没有传值，报id参数错误的错
         $uid = TokenService::getCurrentUid();
         $id = request()->param('id');
         if (!$uid){
@@ -105,7 +102,7 @@ class Order
     //接单接口
     public function packOrder(){
         (new IDMustBePositiveInt())->goCheck();
-        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
+        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会先检测有没有传值，报id参数错误的错
         $uid = TokenService::getCurrentUid();
         $id = request()->param('id');
         $receiverID = OrderModel::getReceiverByOrderID($id);
@@ -121,28 +118,38 @@ class Order
     //确认送达接口
     public function confirmOrder(){
         (new IDMustBePositiveInt())->goCheck();
-        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
+        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会先检测有没有传值，报id参数错误的错
         $uid = TokenService::getCurrentUid();
         $id = request()->param('id');
-        $result = OrderService::changStatus($id,$uid);
+        if (!$uid){
+            throw new UserException();
+        }
+        $result = OrderService::changConfirmStatus($id,$uid);
         return ['msg' => $result];
     }
     //获取我接取的订单列表
     public function getPackedOrder(){
         (new PagingParameter())->goCheck();
-        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会I先检测有没有传值，报id参数错误的错
+        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会先检测有没有传值，报id参数错误的错
         $page = request()->param('page');
         $uid = TokenService::getCurrentUid();
-
-        $orders = OrderModel::getPackedOrders($page,$uid);
-        if (!$orders){
-            throw new MissException();
+        if (!$uid){
+            throw new UserException();
         }
+        $orders = OrderModel::getPackedOrders($page,$uid);
         return $orders;
 
     }
-
-
-
-
+    //取消订单
+    public function cancelOrder(){
+        (new IDMustBePositiveInt())->goCheck();
+        //为了让require验证规则起作用，所以没有在函数里面传至，要不tp5会先检测有没有传值，报id参数错误的错
+        $uid = TokenService::getCurrentUid();
+        $id = request()->param('id');
+        if (!$uid){
+            throw new UserException();
+        }
+        $result = OrderModel::cancel($id,$uid);
+        return $result;
+    }
 }
