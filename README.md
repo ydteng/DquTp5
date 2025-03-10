@@ -1,6 +1,6 @@
 # 介绍
 这是我大学期间写的校内代小程序后台，这是v1版本，功能较少，此仓库可以不看，直接看v2版本。
-[DquTp5V2](https://packagist.org/packages/topthink/think](https://github.com/ydteng/DquTp5V2/tree/master))
+[DquTp5V2](https://github.com/ydteng/DquTp5V2/tree/master)
 
 下面是TP5的官方说明
 
